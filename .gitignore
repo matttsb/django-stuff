@@ -1,0 +1,6 @@
+*.pyc 
+venv/
+plumrz/settings.py
+plumrz/mylocal.cnf
+plumrz/settings2
+plumrz/settings-social.py
