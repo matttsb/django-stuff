@@ -1,0 +1,33 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+<div class="row profileheading">
+  <div class="col-12">
+    <h1>{% trans "Create Account" %}</h1>
+  </div>
+</div>
+
+<div class="row cnt">&nbsp;</div>
+
+<div class="row cnt">
+  <div class="col-12">
+
+
+        <p>{% blocktrans %}Already have an account? <a href="{{ login_url }}">sign in</a> here!{% endblocktrans %}</p>
+
+        <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+          {% csrf_token %}
+          {{ form.as_p }}
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+          <button class="btn btn-primary"type="submit">{% trans "Create Account" %}</button>
+        </form>
+        <div class="row cnt">&nbsp;</div>
+</div>
+</div>
+{% endblock %}

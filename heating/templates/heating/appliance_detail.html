@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Title: {{ appliance.manufacturer }}</h1>
+
+<p><strong>Range:</strong> {{ appliance.name }}</p>
+<p><strong>Model:</strong> {{ appliance.model }}</p> 
+<p><strong>Type:</strong> {{ appliance.fuel }}</p> 
+
+{% load comment_tags %} 
+{% get_comments appliance request %} 
+<div style="margin-left:20px;margin-top:20px">
+<h4>Copies</h4>
+
+<ul>
+    {% for part in appliance.parts.all %}
+        <li>{{ part.mpn }} {{ part.parttype }} {{ part.price }}</li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}

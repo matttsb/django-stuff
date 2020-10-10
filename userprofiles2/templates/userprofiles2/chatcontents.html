@@ -1,0 +1,5 @@
+{% block chatcontent %}
+{% for c in chat %}
+<p>{{ c.sender.avatar}}{{ c.sender.username}} <small>({{ c.date }})</small>{{ c.body }}</p>
+{% endfor %} 
+{% endblock chatcontent %}

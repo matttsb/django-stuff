@@ -1,0 +1,31 @@
+{% extends "base_generic.html" %}
+{% load i18n static avatar_tags %}
+
+{% block title %}{% trans "My profile: Identity" %}{% endblock %}
+
+{% block content %}
+<div class="row cnt">
+	<div class="col-sm-12">
+		<div style="float:left;margin:1em 1em 0 0">
+			<a href="{% url 'avatar_change' %}">
+				{% avatar user 50 class="img-circle img-responsive" style="vertical-align:center" id="user_avatar" %}
+			</a>
+		</div>
+		<h1>{{ user.username }} : {% trans "Identity" %}</h1>
+		<form action="" class="form-horizontal" method="post">{% csrf_token %}
+			<style>
+				td{height:3em};
+			</style>
+			<table>
+			{{ form }}
+		</table>
+		    <div style="margin-top:2.5em">
+		    	<input type="submit" class="btn btn-primary"  value="{% trans "Save" %}" />
+		    	<a class="btn btn-primary" href="javascript:history.back()" class="btn btn-lg btn-default">{% trans "Back" %}</a>
+			</div>
+
+		</form>
+		<div class="row cnt">&nbsp;</div>
+	</div>
+</div>
+{% endblock %}

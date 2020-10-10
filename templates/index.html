@@ -1,0 +1,10 @@
+ 
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% for appliance in appliance_list %}
+<li>
+  <a href="{{ appliance.get_absolute_url }}">{{ appliance.manufacturer }}</a> ({{appliance.nameandmodel}})
+</li>
+{% endfor %}
+{% endblock %}

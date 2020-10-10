@@ -1,0 +1,54 @@
+{% extends "base_generic.html" %}
+{% load i18n static avatar_tags %}
+
+{% block title %}{{ user.username }}{% endblock %}
+{% block content %}
+
+<div class="row profileheading">
+  <div class="col-12">
+    <h1>{{ user.profile.tagline }}</h1>
+    </div></div>
+    <div class="row cnt">
+      <div class="col-12">
+<ul class="list">
+        <li class="list-item">
+          <div class="list-content">
+            <h2>{{ user.username }}</h2>
+            {% avatar user 250 class="bimg"  %}
+          </div>
+        </li>
+         
+        <li class="list-item">
+          <div class="list-content">
+            <h2>Bio</h2>
+            {{ user.profile.bio }}
+          </div>
+        </li>
+
+        <li class="list-item">
+          <div class="list-content">
+            <ul style="flex-direction: column;justify-content:space-between">
+
+              <li>Age: {{ user.profile.age }}</li>
+                <li>City: {{ user.profile.city }}</li>
+                  <li>Country: {{ user.profile.country }}</li>
+
+                  <li><small>Last seen:{{ user.profile.last_seen }}</small></li>
+                  <li><small>Joined: {{ user.date_joined }}</small></li>
+          
+                  <li><small>Last Login: {{ user.last_login }}</small></li>
+
+                  {{ user.website }}
+                  {{ user.gender }}
+                  {{ user.avatar }}
+          </ul>
+          </div>
+        </li>
+</ul>
+</div>
+</div>
+
+{% endblock %}
+{% block featured %}
+
+{% endblock featured %}

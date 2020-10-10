@@ -1,0 +1,84 @@
+    {% extends 'base_generic.html' %} {% block content %}
+    <div class="row cnt">
+      <div class="col-12">
+    <ul class="list">
+
+      <li class="list-item">
+        <div class="list-content">
+          <h2>Features</h2>
+          {% for f in latest_features %}
+          <p><a href="/magazine/{{ f.slug }}/">{{ f.title }}</a> </p>
+          {% endfor %} 
+        </div>
+      </li>
+      <li class="list-item">
+        <div class="list-content">
+          <h2>The Secret Plumber</h2>
+          {% for sp in latest_secret_plumber %}
+          <p><a href="/magazine/{{ sp.slug }}/">{{ sp.title }}</a> </p>
+          {% endfor %} 
+        </div>
+      </li>
+      
+      <li class="list-item">
+        <div class="list-content">
+          <h2>News</h2>
+          {% for n in latest_news %}
+          <p><a href="/magazine/{{ n.slug }}/">{{ n.title }}</a> </p>
+          {% endfor %} 
+        </div>
+      </li>
+      
+      <li class="list-item">
+        <div class="list-content">
+          <h2>Reviews</h2>
+          {% for r in latest_reviews %}
+          <p><a href="/magazine/{{ r.slug }}/">{{ r.title }}</a> </p>
+          {% endfor %} 
+        </div>
+      </li>
+
+      <li class="list-item">
+        <div class="list-content">
+          <h2>Events</h2>
+          {% for e in events %}
+          <p><a href="/magazine/{{ e.slug }}/">{{ e.title }}</a> </p>
+          {% endfor %} 
+        </div>
+      </li>
+
+      <li class="list-item">
+        <div class="list-content">
+          <h2>Boiler Guides</h2>
+          {% for appliance in latest_appliances %}
+          <p><a href="/appliance/{{ appliance.slug }}/">{{ appliance.name }}</a> </p>
+          {% endfor %}         
+        </div>
+      </li>
+      <li class="list-item">
+        <div class="list-content">
+          <h2>Online Users</h2>
+          {% for u in online_users %}
+          <p><a href="/profile/user/{{ u.user.username }}">{{ u.user.username }}</a> </p>
+          {% endfor %}         
+        </div>
+      </li>
+      <li class="list-item">
+        <div class="list-content">
+          <h2>New Members</h2>
+          {% for u in online_users %}
+          <p><a href="/profile/user/{{ u.user.username }}">{{ u.user.username }}</a> </p>
+          {% endfor %}         
+        </div>
+      </li>
+      <li class="list-item">
+        <div class="list-content">
+          <h2>Most Active Members</h2>
+          {% for u in online_users %}
+          <p><a href="/profile/user/{{ u.user.username }}">{{ u.user.username }}</a> </p>
+          {% endfor %}         
+        </div>
+      </li>
+    </ul>   
+</div></div>
+{% endblock content %}{% block featured %}{% endblock featured%}

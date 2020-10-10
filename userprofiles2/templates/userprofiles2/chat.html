@@ -1,0 +1,89 @@
+{% extends 'base_generic.html' %} 
+{% block content %}
+<script> 
+  ucu();
+  var linkurl= '/profile/chatcontents/{{receiverid}}';
+  var r='{{receiverid}}'
+  function cu(u)
+  {
+    $('input[name="reciever"]').val(u);
+    $('#chat').load('/profile/chatcontents/'+u);
+  }
+  function ucu()
+  {
+    var items = null;
+    $.getJSON("/profile/api/userprofiles/?format=json", function(data) {
+      items = data;
+      items.forEach(function(item) {
+    //    $('#user[item.user_id]').html=item.user.username;
+      console.log(item.user_id);
+      console.log(item.user.username);
+  });
+});
+
+  }
+</script>
+<div class="row cnt">
+  
+  <div class="col-sm-4">
+    <div class="overflow-auto" style="height: 200px;">
+      {% if users %}
+      {% for u in users %}
+    <div onClick="cu({{ u.otherparty }});" id="user[{{ u.otherparty }}]" style="padding:4px;font-weight: bold;">
+      user {{ u.otherparty }}
+    </div>
+    {% endfor %} 
+    {% endif %}
+    </div>
+  </div>
+
+  <div class="col-sm-8" style="height:200px;overflow-y: scroll;">
+    <div id="chat">
+      {% block chatcontent %}
+      {% for c in chat %}
+      <p>{{ c.sender.avatar}}{{ c.sender.username}} <small>({{ c.date }})</small>{{ c.body }}</p>
+      {% endfor %} 
+      {% endblock chatcontent %}
+    </div>
+  </div>
+</div>
+
+<div class="row cnt">&nbsp;</div>
+
+
+<div class="row cnt">
+  
+  <div class="col-sm-12">
+
+<form class="form-horizontal" method="POST" action="/profile/sendmessage/">
+    
+  {% csrf_token %}
+    <!-- Text input-->
+    <div class="form-group">
+      <input type="hidden" id="receiver" value="{{receiverid}}" name="receiver"/>
+                     
+        <textarea class="form-control" id="message" name="message"></textarea>
+
+    <input type="submit">
+     </div>
+    </form>
+    </div></div>
+    <script>
+    $(document).ready(function(){
+      var $form = $('form');
+      $form.submit(function(e){
+         e.preventDefault();
+         $.post($(this).attr('action'), $(this).serialize(), function(response){},'json');
+         document.getElementById("message").value = "";
+         $('#chat').load(linkurl);
+         $("#chat").scrollTop($("#chat")[0].scrollHeight);
+         return false;
+      });
+      
+   }
+);
+   
+
+</script>
+
+{% endblock content %}{% block featured %}{% endblock featured%}a

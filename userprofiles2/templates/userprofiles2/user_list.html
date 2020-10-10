@@ -1,0 +1,30 @@
+{% extends "base_generic.html" %}
+{% block topnav %}{% endblock topnav %}
+{% block content %}{% load avatar_tags %}
+<div class="row cnt">
+  {% if user_list %}
+  <div class="col-12">
+  <ul class="list">
+    {% for u in user_list %}
+    <li class="list-item">
+      <div class="list-content">
+        <h2>{{ u.username }}</h2>
+          {% avatar u 250 class="bimg" %}
+        <div class="profileheading">
+            {{ u.profile.tagline }}
+        </div>
+        <p>
+            {{ u.profile.city }} , {{ u.profile.country }}
+        </p>
+          <a href="/profile/user/{{ u.username }}">profile</a>
+          <a href="/profile/send/{{ u.username }}">message</a>
+      </div>
+      </li>
+    {% endfor %}
+  </ul>
+</div>      
+</div>
+{% endif %}
+{% endblock %}
+{% block featured %}
+{% endblock featured %}

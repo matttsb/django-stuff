@@ -1,0 +1,21 @@
+ 
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>appliance List</h1>
+
+    {% if appliance_list %}
+    <ul>
+
+      {% for appliance in appliance_list %}
+      <li>
+        <a href="{{ appliance.get_absolute_url }}">{{ appliance.manufacturer }}</a> ({{appliance.nameandmodel}})
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>There are no appliances in the library.</p>
+    {% endif %}       
+{% endblock %}
