@@ -67,28 +67,28 @@
             </div>
         </div>
         <div class="row cnt">{% block featured %}{% endblock %}</div>
-        <div class="row ftr">
-            <div class="col-12 d-flex justify-content-between">
-                <a class="btn btn-info text-decoration-none wlinks" role="button" href="/profile/list/">Browse Users</a>
-                <a class="btn btn-info text-decoration-none wlinks" role="button" href="/pages/privacy/">Privacy Policy</a>
-                <a class="btn btn-info text-decoration-none wlinks" role="button" href="/pages/tac/">Terms &amp; Conditions</a>
-                <a class="btn btn-info text-decoration-none wlinks" role="button" href="/pages/contact/">Contact Us</a>
+        <div class="row">
+            <div class="col-sm-12 d-flex justify-content-between">
+                <a class="btn btn-info text-decoration-none wlinks m-2" role="button" href="/profile/list/">Browse Users</a>
+                <a class="btn btn-info text-decoration-none wlinks m-2" role="button" href="/pages/privacy/ ">Privacy Policy</a>
+                <a class="btn btn-info text-decoration-none wlinks m-2" role="button" href="/pages/tac/ ">Terms &amp; Conditions</a>
+                <a class="btn btn-info text-decoration-none wlinks m-2" role="button" href="/pages/contact/ ">Contact Us</a>
             </div>
         </div>
 
-        <div class="row">&nbsp;</div>
-        <h6 class="text-center">Copyright &copy; 2018 - {% now "Y" %} <a href="/overview/">PLUMRZ.COM</a>
+        <div class="row ">&nbsp;</div>
+        <h6 class="text-center ">Copyright &copy; 2018 - {% now "Y " %} <a href="/overview/ ">PLUMRZ.COM</a>
         </h6>
     </div>
     <!-- <<<<<<<< end container-fluid -->
     {% load comment_tags %}
-    <script src="/static/js/comment.js"></script>
+    <script src="/static/js/comment.js "></script>
     {% block tick %} {% if user.is_authenticated %}
     <script>
         function send() {
             $.ajax({
-                type: "get",
-                url: "/profile/tick/",
+                type: "get ",
+                url: "/profile/tick/ ",
                 success: function(data) {
                     console.log(data);
                     setTimeout(function() {

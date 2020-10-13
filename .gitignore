@@ -1,4 +1,6 @@
 *.pyc 
+dbback.sh
+plumrz.sql.gz
 venv/
 plumrz/settings.py
 plumrz/mylocal.cnf
