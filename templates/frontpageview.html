@@ -1,7 +1,6 @@
  {% extends 'base_generic.html' %} {% block content %}
 <div class="row flex">
-
-    {% for f in latest_features %}
+    {% load evaluate %} {% for f in latest_features %}
 
     <div class="col-sm-6 flex mt-2">
         <div class="card h-100">
@@ -13,7 +12,8 @@
                     <div class="card-block px-2">
                         <h4 class="card-title"><a href="/magazine/{{ f.slug }}/">{{ f.title }}</a>
                         </h4>
-                        <p class="card-text">{{ f.intro |striptags }}</p>
+                        <p class="card-text"> {% render_this f.intro %}
+                        </p>
                         <!-- <a href="#" class="btn btn-primary">BUTTON</a> -->
                     </div>
                 </div>

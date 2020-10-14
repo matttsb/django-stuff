@@ -16,6 +16,7 @@ class PostDetail(generic.DetailView):
     template_name = 'post_detail.html'
 
 
+
 class IndexView(generic.TemplateView):
     template_name = 'overview.html'
 
