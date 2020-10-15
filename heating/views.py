@@ -12,9 +12,13 @@ def index(request):
 
 
 class PostDetail(generic.DetailView):
+    # no need to change this can render in blog detail template
     model = BlogPost
     template_name = 'post_detail.html'
-
+    def get_context_data(self, **kwargs):
+        context = super(PostDetail, self).get_context_data(**kwargs)
+        context['rendered'] = ""
+        return context
 
 
 class IndexView(generic.TemplateView):

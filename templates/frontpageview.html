@@ -1,4 +1,4 @@
- {% extends 'base_generic.html' %} {% block content %}
+ {% extends 'base_generic.html' %} {% load embed %} {% block content %}
 <div class="row flex">
     {% load evaluate %} {% for f in latest_features %}
 
@@ -31,4 +31,4 @@
 
 </div>
 
-{% endblock content %}{% block featured %}{% endblock featured%}
+{% endblock content %}{% block featured %}{% endblock featured%} {% embed 'syoutube.html' with background='gray' %} {% block A %}Sir Galahad the Pure{% endblock %} {% block B %}Sir Not Appearing In This Film{% endblock %} {% endembed %}

@@ -2,11 +2,32 @@ body {
     margin: 0 auto;
     max-width: 60em;
     line-height: 1.3;
-    background-color: tan;
-    background-image: url("/media/img/copper-pipe.jpg");
+    background-color: #dddddd;
+    /* background-image: url("/media/img/copper-pipe.jpg"); */
     background-repeat: no-repeat;
     /* background-size: contain; */
     background-attachment: fixed;
+}
+
+.logo {
+    widows: 290px;
+    height: 116px;
+    transform: scale(1); // 75% of original size
+}
+
+.videocon {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-top: 56.25%
+}
+
+.video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 path {
@@ -22,15 +43,15 @@ path {
 
 @media screen and (max-width: 992px) {
     body {
-        background-color: blue;
-        background-image: url("/media/img/copper-pipe.jpg");
+        background-color: #f8e3e3;
+        /* background-image: url("/media/img/copper-pipe.jpg"); */
     }
 }
 
 @media screen and (max-width: 2000px) {
     body {
-        background-color: blue;
-        background-image: url("/media/img/bg2000.jpg");
+        background-color: #dad6d6;
+        /* background-image: url("/media/img/bg2000.jpg"); */
     }
 }
 
@@ -39,8 +60,11 @@ path {
 
 @media screen and (max-width: 600px) {
     body {
-        background-color: olive;
-        background-image: url('/media/img/copper-pipe.jpg');
+        background-color: #f5eaea;
+        /* background-image: url('/media/img/copper-pipe.jpg'); */
+    }
+    .logo {
+        transform: scale(0.5); // 75% of original size
     }
 }
 
