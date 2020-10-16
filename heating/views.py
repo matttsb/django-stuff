@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.views import generic
 from heating import *
-from .models import Appliance, Manufacturer, Part, BlogPost, BlogCategory
+from heating.models import Appliance, Manufacturer, Part, BlogPost, BlogCategory
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 from userprofiles2.models import UserProfile
+from django_comments.models import Comment
+
 
 
 def index(request):
@@ -17,7 +19,6 @@ class PostDetail(generic.DetailView):
     template_name = 'post_detail.html'
     def get_context_data(self, **kwargs):
         context = super(PostDetail, self).get_context_data(**kwargs)
-        context['rendered'] = ""
         return context
 
 class ForumDetail(generic.DetailView):
@@ -26,7 +27,7 @@ class ForumDetail(generic.DetailView):
     template_name = 'forum_detail.html'
     def get_context_data(self, **kwargs):
         context = super(ForumDetail, self).get_context_data(**kwargs)
-        context['rendered'] = ""
+        context['comments'] = self.object.Comment.filter(approved=True)
         return context
 
 class IndexView(generic.TemplateView):

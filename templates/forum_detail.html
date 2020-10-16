@@ -47,10 +47,15 @@
         <hr/>
     </div>
 
-    {% endblock content %}
+
 </div>
 <div class="row com">
     <div class="col-12">
-        {% load comments %} {% render_comment_form for entry %}
+        <h2>Features</h2>
+        {% for c in comments%}
+        <p><a href="/magazine/{{ c.pk }}/">{{ c.pk }}</a> </p>
+        {% endfor %}
     </div>
 </div>
+
+{% endblock content %}
