@@ -8,12 +8,13 @@ from django.contrib.auth.models import User
 from django_comments.moderation import CommentModerator, moderator
 from django.utils import timezone
 from tinymce.models import HTMLField
+import re
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=100, unique=True)
-    slug = models.SlugField(max_length=100, unique=True)
+    slug = models.SlugField(null=True,blank=True,max_length=100, unique=True)
     image = models.ImageField(null=True,upload_to='media/img')
-    keywords = models.CharField(max_length=200, null=True, blank=True)
+    keywords = models.CharField(max_length=200, null=False, blank=False)
     metad = models.CharField(max_length=200, null=True, blank=True)
     intro = models.TextField(null=True, blank=True)
     body = HTMLField(null=True, blank=True)
@@ -36,21 +37,12 @@ class BlogPost(models.Model):
     def __str__(self):
         return f'{self.title}'
 
-    def save(self, **kwargs):
-        if not self.slug:
-            slug = slugify(self.title)
-            while True:
-                try:
-                    post = BlogPost.objects.get(slug=slug)
-                    if post == self:
-                        self.slug = slug
-                        break
-                    else:
-                        slug = slug + '-'
-                except BaseException:
-                    self.slug = slug
-                    break
-        super(BlogPost, self).save()
+    def save(self, *args, **kwargs):
+        if not self.intro:
+            self.intro = self.body.partition('.')[0]
+        if not self.pk:
+            self.slug = slugify(self.title+"_"+self.keywords)
+        super(BlogPost, self).save(*args, **kwargs)
 
 
 class BlogPostModerator(CommentModerator):

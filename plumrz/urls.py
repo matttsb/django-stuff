@@ -18,7 +18,7 @@ urlpatterns = [
     path('comments/', include('django_comments.urls')),
     path('comment/', include('comment.urls')),
     path('magazine/<slug:slug>/', views.PostDetail.as_view(), name='blogpost-detail'),
-    path('forum/<slug:slug>/', views.PostDetail.as_view(), name='blogpost-detail'),
+    path('forum/<slug:slug>/', views.ForumDetail.as_view(), name='blogpost-detail'),
     path('overview/',views.IndexView.as_view()),
     path('',views.FrontPageView.as_view()),
     path('<slug:category_slug>/<slug:post_slug>', views.SinglePostByCategory.as_view(), 'single_post_by_category'),
