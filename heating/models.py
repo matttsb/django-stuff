@@ -43,6 +43,12 @@ class BlogPost(models.Model):
         if not self.pk:
             self.slug = slugify(self.title+"_"+self.keywords)
         super(BlogPost, self).save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        return '/'+self.category.slug+'/'+self.slug
+
+        # def get_absolute_url(self):
+        #     return reverse('blog', args=[category.slug+"/"+self.slug])
 
 
 class BlogPostModerator(CommentModerator):
