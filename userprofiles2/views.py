@@ -4,6 +4,7 @@ from django.views.generic.edit import UpdateView
 from django.views.generic import TemplateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from userprofiles2.models import UserProfile, Chat
+from comment.models import Comment
 from userprofiles2.forms import IdentiteForm
 from django.views import generic
 from django.contrib.auth.models import User
@@ -16,9 +17,10 @@ from django.db.models import Q
 import pytz
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
-from userprofiles2.serializers import *
+from userprofiles2.serializers import GroupSerializer,UserProfileSerializer,UserSerializer
 from django.views.generic.base import RedirectView
 from django.shortcuts import redirect
+from heating.models import BlogPost
 
 class UserProfileViewSet(viewsets.ModelViewSet):
     """
@@ -96,8 +98,22 @@ class ProfileDetailView(DetailView):
     model = User
 
     def get_object(self):
+        print (Comment.objects.filter(user=self.request.user))
         return get_object_or_404(User, username=self.kwargs.get('slug'))
 
+class ProfileDetailViewAll(DetailView):
+    template_name = "userprofiles2/profile.html"
+    model = User
+    slug_field = 'username'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileDetailViewAll, self).get_context_data(**kwargs)
+        userid=self.object.pk
+        #This need changing to a queryset joining comment and blogPost
+        #context['comment_list']  = Comment.objects.filter(user=self.request.user)
+        context['comment_list'] = Comment.objects.raw("select * from comment_comment,heating_blogpost WHERE comment_comment.object_id= heating_blogpost.id")
+        return context
+    
 
 def OnlineView(request):
     if request.user.is_authenticated:

@@ -4,7 +4,7 @@
     <p class="js-comment-content {% block c_text_cls %} h6 mb-0{% endblock c_text_cls %}">{{ obj.content }}</p>
     <footer class="blockquote-footer">
         <small>
-            <a class="{% block user_name %}{% endblock user_name %}" href="{% profile_url obj profile_app_name profile_model_name %}">{{ obj.user }}</a> |
+            <a class="{% block user_name %}{% endblock user_name %}" href="/profile/user/{{ obj.user }}">{{ obj.user }}</a> |
             {% if obj.is_edited %}
             <cite title="Edited">Edited: {{ obj.edit_date|timesince }} ago</cite>
             {% else %}

@@ -18,7 +18,7 @@ urlpatterns = [
     path('send/<slug>', SendNew.as_view(), name='send'),
     path('sendmessage/', csrf_exempt(SendMessage.as_view()), name='send-message'),
     path('chatcontents/<slug>', ChatContents.as_view(), name='chatcontents'),
-    path('user/<slug>', ProfileDetailView.as_view(), name='user-detail'),
+    path('user/<slug>', ProfileDetailViewAll.as_view(), name='user-detail'),
     url(r'^$', ProfileHomeView.as_view(), name='profile-home'),
     url(r'^identity/(?P<pk>[0-9]+)/$',
 

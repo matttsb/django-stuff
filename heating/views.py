@@ -27,7 +27,6 @@ class ForumDetail(generic.DetailView):
     template_name = 'forum_detail.html'
     def get_context_data(self, **kwargs):
         context = super(ForumDetail, self).get_context_data(**kwargs)
-        context['comments'] = self.object.Comment.filter(approved=True)
         return context
 
 class IndexView(generic.TemplateView):

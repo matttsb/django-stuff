@@ -47,6 +47,11 @@
 </ul>
 </div>
 </div>
+{% for comment in comment_list %} 
+<h2>{{ comment.title}}</h2>
+{{ comment.object_id }}
+{{ comment.content }}
+ {% endfor %}
 
 {% endblock %}
 {% block featured %}
