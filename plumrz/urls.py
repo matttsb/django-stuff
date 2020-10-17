@@ -15,13 +15,12 @@ from avatar import urls
 from django.views.generic.base import TemplateView
 
 urlpatterns = [
+    path('',views.FrontPageView.as_view()),
     path('comments/', include('django_comments.urls')),
     path('comment/', include('comment.urls')),
-    path('magazine/<slug:slug>/', views.PostDetail.as_view(), name='blogpost-detail'),
-    path('forum/<slug:slug>/', views.ForumDetail.as_view(), name='blogpost-detail'),
+    path('questions/<slug:slug>/', views.ForumDetail.as_view(), name='forum-detail'),
+    path('<slug:category>/<slug:slug>/', views.PostDetail.as_view(), name='blogpost-detail'),
     path('overview/',views.IndexView.as_view()),
-    path('',views.FrontPageView.as_view()),
-    path('<slug:category_slug>/<slug:post_slug>', views.SinglePostByCategory.as_view(), 'single_post_by_category'),
     path('manage/', views.manage, name='manage'),
     path('api/', include('comment.api.urls')),  # for API Framework
     path('avatar/', include('avatar.urls')),

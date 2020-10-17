@@ -48,9 +48,9 @@
 </div>
 </div>
 {% for comment in comment_list %} 
-<h2>{{ comment.title}}</h2>
-{{ comment.object_id }}
-{{ comment.content }}
+<h2><a href="/magazine/{{ comment.slug}}/">{{ comment.title}}</a></h2>
+
+{{ comment.content |truncatewords:20}}
  {% endfor %}
 
 {% endblock %}

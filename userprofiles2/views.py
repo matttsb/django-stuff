@@ -111,7 +111,7 @@ class ProfileDetailViewAll(DetailView):
         userid=self.object.pk
         #This need changing to a queryset joining comment and blogPost
         #context['comment_list']  = Comment.objects.filter(user=self.request.user)
-        context['comment_list'] = Comment.objects.raw("select * from comment_comment,heating_blogpost WHERE comment_comment.object_id= heating_blogpost.id")
+        context['comment_list'] = Comment.objects.raw("select * from comment_comment,heating_blogpost WHERE comment_comment.object_id= heating_blogpost.id AND comment_comment.user_id="+str(int(userid)))
         return context
     
 

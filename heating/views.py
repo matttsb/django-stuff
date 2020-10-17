@@ -52,17 +52,10 @@ class FrontPageView(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['latest_appliances'] = Appliance.objects.all().filter(visible=True)[:5]
-        #context['latest_parts']= Part.objects.order_by("mpn")[:10]
-        context['latest_news'] = BlogPost.objects.all().filter(category=2,visible=True)[:5]
-        context['latest_secret_plumber'] = BlogPost.objects.all().filter(category=1,visible=True)[
-            :5]
+
         context['latest_features'] = BlogPost.objects.all().filter(visible=True)[
-            :40]
-        context['latest_reviews'] = BlogPost.objects.all().filter(category=3,visible=True)[
-            :5]
-        context['online_users'] = UserProfile.objects.all()[:5]
-        context['events'] = BlogPost.objects.all().filter(category=6,visible=True)[:5]
+            :40].select_related('category')
+        context['ctx'] = context['latest_features']
         return context
 
 def redirect_view(request):

@@ -1,4 +1,4 @@
- {% extends 'base_generic.html' %} {% block content %}
+ {% extends 'base_generic.html' %} {% block content %} 
 <div class="row flex">
     {% load evaluate %} {% for f in latest_features %}
 
@@ -10,7 +10,7 @@
                 </div>
                 <div class="col">
                     <div class="card-block px-2">
-                        <h4 class="card-title"><a href="/magazine/{{ f.slug }}/">{{ f.title }}</a>
+                        <h4 class="card-title"><a href="/{{ f.category.slug }}/{{ f.slug }}/">{{ f.category}} :: {{f.title }}</a>
                         </h4>
                         <p class="card-text"> {% render_this f.intro %}
                         </p>
