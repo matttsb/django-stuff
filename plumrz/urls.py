@@ -26,6 +26,7 @@ urlpatterns = [
     path('avatar/', include('avatar.urls')),
     path('account/', include('allauth.urls')),
     path('profile/', include('userprofiles2.urls')),
+    path('newsfeed/', include('newsfeed.urls', namespace='newsfeed')),
     path('accounts/profile/',  TemplateView.as_view(template_name='profile.html')),
     path('appliance/<slug>/', views.ApplianceDetailView.as_view(), name='appliance-detail'),  
     path('admin/', admin.site.urls),
