@@ -3,13 +3,13 @@ from django.urls import reverse  # To generate URLS by reversing URL patterns
 from slugify import slugify
 from comment.models import Comment
 from django.contrib.contenttypes.fields import GenericRelation
-from tinymce.models import HTMLField
+
 from django.contrib.auth.models import User
 from django_comments.moderation import CommentModerator, moderator
 from django.utils import timezone
-from tinymce.models import HTMLField
+from ckeditor_uploader.fields import RichTextUploadingField
 import re
-
+#
 class BlogPost(models.Model):
     title = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(null=True,blank=True,max_length=100, unique=True)
@@ -17,7 +17,7 @@ class BlogPost(models.Model):
     keywords = models.CharField(max_length=200, null=False, blank=False)
     metad = models.CharField(max_length=200, null=True, blank=True)
     intro = models.TextField(null=True, blank=True)
-    body = HTMLField(null=True, blank=True)
+    body = RichTextUploadingField(null=True, blank=True)
     posted = models.DateField(db_index=True, auto_now_add=True)
     category = models.ForeignKey('BlogCategory', on_delete=models.CASCADE)
     author = models.ForeignKey(
