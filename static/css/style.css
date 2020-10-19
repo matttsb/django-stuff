@@ -1,6 +1,8 @@
+html {
+  scroll-behavior: smooth;
+}
 body {
     margin: 0 auto;
-    max-width: 60em;
     line-height: 1.3;
     background-color: #dddddd;
     /* background-image: url("/media/img/copper-pipe.jpg"); */
@@ -8,11 +10,17 @@ body {
     /* background-size: contain; */
     background-attachment: fixed;
 }
+.container{
+    max-width: 60em;
 
+}
+.card-footer{
+  bottom:0;
+}
 .logo {
     widows: 290px;
     height: 116px;
-    transform: scale(1); // 75% of original size
+    transform: scale(1);
 }
 
 .videocon {
@@ -123,6 +131,11 @@ path {
     font-family: 'Days One', sans-serif;
     font-size: 1.1em;
     padding-bottom: 5px;
+}
+
+.headline {
+    font-family: 'Days One', sans-serif;
+    font-size: 1.1 em;
 }
 
 .fwhead,

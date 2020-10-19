@@ -6,21 +6,21 @@
         <div class="card h-100">
             <div class="row no-gutters">
                 <div class="col-auto">
-                    {% load imagekit %} {% thumbnail '150x150' f.image -- alt="{{ f.title }}" class="img-fluid"%}
+                    {% load imagekit %} {% thumbnail '80x80' f.image -- alt="{{ f.title }}" class="img-fluid"%}
                 </div>
                 <div class="col">
                     <div class="card-block px-2">
-                        <h4 class="card-title"><a href="/{{ f.category.slug }}/{{ f.slug }}/">{{ f.category}} :: {{f.title }}</a>
-                        </h4>
-                        <p class="card-text"> {% render_this f.intro %}
-                        </p>
-                        <!-- <a href="#" class="btn btn-primary">BUTTON</a> -->
+                        <div class="card-title"><a class="headline" href="/{{ f.category.slug }}/{{ f.slug }}/">{{ f.category}} / {{f.title }}</a>
+                        </div>
+{% comment %}                         <p class="card-text"> {% render_this f.intro %}
+                        </p> 
+                         <a href="#" class="btn btn-primary">BUTTON</a> {% endcomment %}
                     </div>
                 </div>
             </div>
             <div class="card-footer w-100 text-muted">
                 <img src="/media/img/comment-plumbing.png" width="15" height="15">
-            </div>
+         8 comments   </div>
         </div>
 
     </div>
