@@ -1,6 +1,7 @@
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
+
 body {
     margin: 0 auto;
     line-height: 1.3;
@@ -10,17 +11,21 @@ body {
     /* background-size: contain; */
     background-attachment: fixed;
 }
-.container{
-    max-width: 60em;
 
+.container {
+    max-width: 60em;
 }
-.card-footer{
-  bottom:0;
+
+.card-footer {
+    bottom: 0;
 }
+
 .logo {
     widows: 290px;
     height: 116px;
     transform: scale(1);
+    padding-left: 10px;
+    margin-left: 10px
 }
 
 .videocon {
@@ -44,6 +49,10 @@ path {
     stroke-width: 1px;
     stroke-dasharray: 2, 2;
     stroke-linejoin: round;
+}
+
+navbox {
+    width: auto;
 }
 
 
@@ -72,7 +81,12 @@ path {
         /* background-image: url('/media/img/copper-pipe.jpg'); */
     }
     .logo {
-        transform: scale(0.5); // 75% of original size
+        transform: scale(0.55);
+        margin-left: -60px;
+        margin-right: -195px;
+    }
+    navbox {
+        width: 100%;
     }
 }
 

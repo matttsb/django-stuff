@@ -1,0 +1,17 @@
+{% load avatar_tags %}
+{% if user.is_authenticated %}
+
+    <div class="dropdown float-right mt-2">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {{ user.get_username }}
+    </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="/profile/">Profile</a>
+            <a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a> {% if user.is_staff %}
+            <a class="dropdown-item" href="/admin/">Admin</a> {% endif %} {% avatar user class="img-circle" id="user_avatar" %}
+        </div>
+    </div>
+{% else %}
+
+<a class="btn btn-info float-right m-2" role="button" href="{% url 'account_login' %}">Login</a> &nbsp;
+<a class="btn btn-info float-right m-2" role="button" href="{% url 'account_signup' %}">Create Account</a> {% endif %} 
