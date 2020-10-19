@@ -103,6 +103,10 @@ navbox {
     background-color: lightcyan
 }
 
+.catname {
+    color: #491212
+}
+
 .hdr {
     background-color: blue;
     padding: 10px;
