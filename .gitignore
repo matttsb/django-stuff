@@ -2,6 +2,7 @@
 dbback.sh
 plumrz.sql.gz
 venv/
+avatars/
 plumrz.settings.local
 plumrz/settings.py
 plumrz/mylocal.cnf
