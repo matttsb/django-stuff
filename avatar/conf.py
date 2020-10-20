@@ -11,10 +11,11 @@ class AvatarConf(AppConf):
     PATH_HANDLER = 'avatar.models.avatar_path_handler'
     GRAVATAR_BASE_URL = 'https://www.gravatar.com/avatar/'
     GRAVATAR_FIELD = 'email'
-    GRAVATAR_DEFAULT = None
+    GRAVATAR_DEFAULT = 'none'
+# GRAVATAR_DEFAULT = 'https://plumrz.com/avatars/The_Secret_Plumber/resized/250/spanner.jpg'
     AVATAR_GRAVATAR_FORCEDEFAULT = False
-    DEFAULT_URL = 'avatar/img/default.jpg'
-    MAX_AVATARS_PER_USER = 42
+    DEFAULT_URL = 'spanner.jpg'
+    MAX_AVATARS_PER_USER = 1
     MAX_SIZE = 1024 * 1024
     THUMB_FORMAT = 'JPEG'
     THUMB_QUALITY = 85
@@ -34,7 +35,7 @@ class AvatarConf(AppConf):
     DELETE_TEMPLATE = ''
     PROVIDERS = (
         'avatar.providers.PrimaryAvatarProvider',
-        'avatar.providers.GravatarAvatarProvider',
+  #      'avatar.providers.GravatarAvatarProvider',
         'avatar.providers.DefaultAvatarProvider',
     )
 
