@@ -57,13 +57,12 @@ class IndexView(generic.TemplateView):
 
 class FrontPageView(generic.TemplateView):
     template_name = 'frontpageview.html'
-
+    ordering = ['-published']
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['latest_features'] = BlogPost.objects.all().filter(visible=True)[
-            :40].select_related('category')
-        context['ctx'] = context['latest_features']
+        context['latest_features'] = BlogPost.objects.all().filter(visible=True).order_by('-publishdate')[
+            :20].select_related('category')
         return context
 
 def redirect_view(request):

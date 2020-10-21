@@ -1,0 +1,696 @@
+From 0e9353b5787ebd2305098dd5a188c27abf86c6c4 Mon Sep 17 00:00:00 2001
+From: matttsb <matttsburke@gmail.com>
+Date: Wed, 21 Oct 2020 07:27:04 +0200
+Subject: diagnosticspage
+
+
+diff --git a/.gitignore b/.gitignore
+index 40ea47b0..4d5b5f39 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -1,3 +1,4 @@
++*sql*
+ *.pyc 
+ dbback.sh
+ plumrz.sql.gz
+diff --git a/heating/views.py b/heating/views.py
+index b5038fc0..f39d8b72 100644
+--- a/heating/views.py
++++ b/heating/views.py
+@@ -28,7 +28,15 @@ class ForumDetail(generic.DetailView):
+     def get_context_data(self, **kwargs):
+         context = super(ForumDetail, self).get_context_data(**kwargs)
+         return context
+-#
++        
++class TestDetail(generic.DetailView):
++    # no need to change this can render in blog detail template
++    model = BlogPost
++    template_name = 'test.html'
++    def get_context_data(self, **kwargs):
++        context = super(TestDetail, self).get_context_data(**kwargs)
++        return context
++
+ class IndexView(generic.TemplateView):
+     template_name = 'overview.html'
+ 
+diff --git a/media/img/flame-sensing-electrode.jpg b/media/img/flame-sensing-electrode.jpg
+new file mode 100644
+index 00000000..33272147
+Binary files /dev/null and b/media/img/flame-sensing-electrode.jpg differ
+diff --git a/media/img/gas-boiler-NTC-thermistor.jpg b/media/img/gas-boiler-NTC-thermistor.jpg
+new file mode 100644
+index 00000000..997957c6
+Binary files /dev/null and b/media/img/gas-boiler-NTC-thermistor.jpg differ
+diff --git a/media/img/gas-boiler-thermocouple.jpg b/media/img/gas-boiler-thermocouple.jpg
+new file mode 100644
+index 00000000..e6a5d3f7
+Binary files /dev/null and b/media/img/gas-boiler-thermocouple.jpg differ
+diff --git a/media/img/mercury_vapour_switch.jpg b/media/img/mercury_vapour_switch.jpg
+new file mode 100644
+index 00000000..d9633d46
+Binary files /dev/null and b/media/img/mercury_vapour_switch.jpg differ
+diff --git a/media/img/pressure-switch.jpg b/media/img/pressure-switch.jpg
+new file mode 100644
+index 00000000..c3a1daf7
+Binary files /dev/null and b/media/img/pressure-switch.jpg differ
+diff --git a/media/media/img/20200825_110738.jpg b/media/media/img/20200825_110738.jpg
+new file mode 100644
+index 00000000..bbfae22e
+Binary files /dev/null and b/media/media/img/20200825_110738.jpg differ
+diff --git a/media/media/img/Gas_boiler-15-512.png b/media/media/img/Gas_boiler-15-512.png
+new file mode 100644
+index 00000000..438f62f6
+Binary files /dev/null and b/media/media/img/Gas_boiler-15-512.png differ
+diff --git a/media/media/img/Hydrogen-boiler-uk-buy-now.jpg b/media/media/img/Hydrogen-boiler-uk-buy-now.jpg
+new file mode 100644
+index 00000000..7589460b
+Binary files /dev/null and b/media/media/img/Hydrogen-boiler-uk-buy-now.jpg differ
+diff --git a/media/media/img/IMG_20201017_120549.jpg b/media/media/img/IMG_20201017_120549.jpg
+new file mode 100644
+index 00000000..ec2e5b53
+Binary files /dev/null and b/media/media/img/IMG_20201017_120549.jpg differ
+diff --git a/media/media/img/energy-saving-vaillant-gas-boiler.jpg b/media/media/img/energy-saving-vaillant-gas-boiler.jpg
+new file mode 100644
+index 00000000..bb34734b
+Binary files /dev/null and b/media/media/img/energy-saving-vaillant-gas-boiler.jpg differ
+diff --git a/media/media/img/expensive-plumber-uk.jpeg b/media/media/img/expensive-plumber-uk.jpeg
+new file mode 100644
+index 00000000..a61f30c4
+Binary files /dev/null and b/media/media/img/expensive-plumber-uk.jpeg differ
+diff --git a/media/media/img/facom.jpg b/media/media/img/facom.jpg
+new file mode 100644
+index 00000000..09e8ac7f
+Binary files /dev/null and b/media/media/img/facom.jpg differ
+diff --git a/media/media/img/gas-combi-diy-servicing-boiler.jpg b/media/media/img/gas-combi-diy-servicing-boiler.jpg
+new file mode 100644
+index 00000000..9a60e4ab
+Binary files /dev/null and b/media/media/img/gas-combi-diy-servicing-boiler.jpg differ
+diff --git a/media/media/img/gas-combi-diy-servicing-boiler_3xg1gja.jpg b/media/media/img/gas-combi-diy-servicing-boiler_3xg1gja.jpg
+new file mode 100644
+index 00000000..9a60e4ab
+Binary files /dev/null and b/media/media/img/gas-combi-diy-servicing-boiler_3xg1gja.jpg differ
+diff --git a/media/media/img/gas-combi-flow-sensor.jpg b/media/media/img/gas-combi-flow-sensor.jpg
+new file mode 100644
+index 00000000..753c6d99
+Binary files /dev/null and b/media/media/img/gas-combi-flow-sensor.jpg differ
+diff --git a/media/media/img/hausbau_angebot_gas_animblau.gif b/media/media/img/hausbau_angebot_gas_animblau.gif
+new file mode 100644
+index 00000000..fb44c006
+Binary files /dev/null and b/media/media/img/hausbau_angebot_gas_animblau.gif differ
+diff --git a/media/media/img/heating_exhibition_phex_uk.png b/media/media/img/heating_exhibition_phex_uk.png
+new file mode 100644
+index 00000000..992e505a
+Binary files /dev/null and b/media/media/img/heating_exhibition_phex_uk.png differ
+diff --git a/media/media/img/ikea-plumbing-cheap.jpg b/media/media/img/ikea-plumbing-cheap.jpg
+new file mode 100644
+index 00000000..8c678e63
+Binary files /dev/null and b/media/media/img/ikea-plumbing-cheap.jpg differ
+diff --git a/media/media/img/index.png b/media/media/img/index.png
+new file mode 100644
+index 00000000..d3234b2a
+Binary files /dev/null and b/media/media/img/index.png differ
+diff --git a/media/media/img/pegler_Ball_Valve.jpg b/media/media/img/pegler_Ball_Valve.jpg
+new file mode 100644
+index 00000000..3a5941c5
+Binary files /dev/null and b/media/media/img/pegler_Ball_Valve.jpg differ
+diff --git a/media/media/img/pilot-light-boiler-gas.jpg b/media/media/img/pilot-light-boiler-gas.jpg
+new file mode 100644
+index 00000000..cdba6089
+Binary files /dev/null and b/media/media/img/pilot-light-boiler-gas.jpg differ
+diff --git a/media/media/img/plumbing-quotes-and-estimates.png b/media/media/img/plumbing-quotes-and-estimates.png
+new file mode 100644
+index 00000000..1117bfa0
+Binary files /dev/null and b/media/media/img/plumbing-quotes-and-estimates.png differ
+diff --git a/media/media/img/resistor-diagnosis-boiler-pcb.png b/media/media/img/resistor-diagnosis-boiler-pcb.png
+new file mode 100644
+index 00000000..1b1509d9
+Binary files /dev/null and b/media/media/img/resistor-diagnosis-boiler-pcb.png differ
+diff --git a/media/media/img/resistor-diagnosis-boiler-pcb_aDa8vOR.png b/media/media/img/resistor-diagnosis-boiler-pcb_aDa8vOR.png
+new file mode 100644
+index 00000000..1b1509d9
+Binary files /dev/null and b/media/media/img/resistor-diagnosis-boiler-pcb_aDa8vOR.png differ
+diff --git a/media/media/img/saunier-duval-pac.jpg b/media/media/img/saunier-duval-pac.jpg
+new file mode 100644
+index 00000000..10b39481
+Binary files /dev/null and b/media/media/img/saunier-duval-pac.jpg differ
+diff --git a/media/media/img/unblock-uk-sink-how-much-does-it-cost.jpg b/media/media/img/unblock-uk-sink-how-much-does-it-cost.jpg
+new file mode 100644
+index 00000000..9e08d442
+Binary files /dev/null and b/media/media/img/unblock-uk-sink-how-much-does-it-cost.jpg differ
+diff --git a/media/media/img/washing-machine-waste.jpg b/media/media/img/washing-machine-waste.jpg
+new file mode 100644
+index 00000000..8cb41779
+Binary files /dev/null and b/media/media/img/washing-machine-waste.jpg differ
+diff --git a/media/uploads/2020/10/20/boiler-photocell-500x500.jpg b/media/uploads/2020/10/20/boiler-photocell-500x500.jpg
+new file mode 100644
+index 00000000..cd3f9fb6
+Binary files /dev/null and b/media/uploads/2020/10/20/boiler-photocell-500x500.jpg differ
+diff --git a/media/uploads/2020/10/20/diaphragm-reed-switch-boiler.jpg b/media/uploads/2020/10/20/diaphragm-reed-switch-boiler.jpg
+new file mode 100644
+index 00000000..87719047
+Binary files /dev/null and b/media/uploads/2020/10/20/diaphragm-reed-switch-boiler.jpg differ
+diff --git a/media/uploads/2020/10/20/fan-pressure-proving-switch.jpg b/media/uploads/2020/10/20/fan-pressure-proving-switch.jpg
+new file mode 100644
+index 00000000..66f2d688
+Binary files /dev/null and b/media/uploads/2020/10/20/fan-pressure-proving-switch.jpg differ
+diff --git a/media/uploads/2020/10/20/hosco_flow_switch.jpg b/media/uploads/2020/10/20/hosco_flow_switch.jpg
+new file mode 100644
+index 00000000..efb0fa6c
+Binary files /dev/null and b/media/uploads/2020/10/20/hosco_flow_switch.jpg differ
+diff --git a/media/uploads/2020/10/20/read-switch-boiler.jpg b/media/uploads/2020/10/20/read-switch-boiler.jpg
+new file mode 100644
+index 00000000..9d66b357
+Binary files /dev/null and b/media/uploads/2020/10/20/read-switch-boiler.jpg differ
+diff --git a/plumrz/urls.py b/plumrz/urls.py
+index e4939f14..196ea879 100644
+--- a/plumrz/urls.py
++++ b/plumrz/urls.py
+@@ -34,6 +34,8 @@ urlpatterns = [
+     path('comments/', include('django_comments.urls')),
+     path('comment/', include('comment.urls')),
+     path('questions/<slug:slug>/', views.ForumDetail.as_view(), name='forum-detail'),
++    path('test/<slug:slug>/', views.TestDetail.as_view(), name='test-detail'),
++    
+     path('overview/',views.IndexView.as_view()),
+     path('manage/', views.manage, name='manage'),
+     path('api/', include('comment.api.urls')),  # for API Framework
+@@ -46,7 +48,6 @@ urlpatterns = [
+     path('admin/', admin.site.urls),
+     path('pages/', include('django.contrib.flatpages.urls')),
+     path('appliances/', views.ApplianceListView.as_view(), name='appliances'),
+-    path('tinymce/', include('tinymce.urls')),
+     path('sitemap.xml', sitemap,{'sitemaps': sitemaps},name='django.contrib.sitemaps.views.sitemap'),
+     path('<slug:category>/<slug:slug>/', views.PostDetail.as_view(), name='blog'),
+ 
+diff --git a/requirements. b/requirements.
+new file mode 100644
+index 00000000..3c179322
+--- /dev/null
++++ b/requirements.
+@@ -0,0 +1,81 @@
++asgiref==3.2.7
++astroid==2.4.2
++autopep8==1.5.2
++beautifulsoup4==4.8.2
++certifi==2019.11.28
++cffi==1.14.0
++chardet==3.0.4
++coverage==5.1
++cryptography==2.8
++defusedxml==0.6.0
++diff-match-patch==20181111
++Django==3.0.4
++django-allauth==0.41.0
++django-appconf==1.0.3
++django-autoslug==1.9.6
++django-autoslug-field==0.2.3
++django-avatar==5.0.0
++django-bootstrap4==1.1.1
++django-ckeditor==6.0.0
++django-classy-tags==1.0.0
++django-comments-dab==1.3.0
++django-compat==1.0.15
++django-contrib-comments==1.9.2
++django-cookie-law==2.0.3
++django-debug-toolbar==2.2
++django-embed-template==0.2.0
++django-favicon-plus==0.0.8
++django-filebrowser-no-grappelli==3.8.0
++django-froala-editor==3.1.0
++django-imagekit==4.0.2
++django-import-export==2.0.2
++django-js-asset==1.2.2
++django-newsfeed==0.8.3
++django-sesame==1.7
++django-tinymce==3.1.0
++django-widget-tweaks==1.4.8
++djangorestframework==3.11.0
++et-xmlfile==1.0.1
++Faker==4.0.3
++idna==2.9
++isort==5.6.4
++jdcal==1.4.1
++lazy-object-proxy==1.4.3
++lxml==4.5.0
++MarkupPy==1.14
++mccabe==0.6.1
++mysqlclient==1.4.6
++oauthlib==3.1.0
++odfpy==1.4.1
++openpyxl==3.0.3
++pep8==1.7.1
++pilkit==2.0
++Pillow==7.0.0
++pkg-resources==0.0.0
++pycodestyle==2.5.0
++pycparser==2.20
++PyJWT==1.7.1
++pylint==2.6.0
++pylint-django==2.3.0
++pylint-plugin-utils==0.6
++PyMySQL==0.9.3
++pytest-runner==5.2
++python-dateutil==2.8.1
++python-slugify==4.0.0
++python3-openid==3.1.0
++pytz==2019.3
++PyYAML==5.3.1
++requests==2.23.0
++requests-oauthlib==1.3.0
++six==1.14.0
++soupsieve==2.0
++sqlparse==0.3.1
++tablib==1.1.0
++text-unidecode==1.3
++toml==0.10.1
++typed-ast==1.4.1
++ua-parser==0.10.0
++urllib3==1.25.8
++wrapt==1.12.1
++xlrd==1.2.0
++xlwt==1.3.0
+diff --git a/requirements.txt b/requirements.txt
+deleted file mode 100644
+index dacd9dc3..00000000
+--- a/requirements.txt
++++ /dev/null
+@@ -1,65 +0,0 @@
+-asgiref==3.2.7
+-autopep8==1.5.2
+-beautifulsoup4==4.8.2
+-certifi==2019.11.28
+-cffi==1.14.0
+-chardet==3.0.4
+-coverage==5.1
+-cryptography==2.8
+-defusedxml==0.6.0
+-diff-match-patch==20181111
+-Django==3.0.4
+-django-allauth==0.41.0
+-django-appconf==1.0.3
+-django-autoslug==1.9.6
+-django-autoslug-field==0.2.3
+-django-avatar==5.0.0
+-django-bootstrap4==1.1.1
+-django-classy-tags==1.0.0
+-django-comments-dab==1.3.0
+-django-compat==1.0.15
+-django-contrib-comments==1.9.2
+-django-cookie-law==2.0.3
+-django-debug-toolbar==2.2
+-django-favicon-plus==0.0.8
+-django-froala-editor==3.1.0
+-django-imagekit==4.0.2
+-django-import-export==2.0.2
+-django-sesame==1.7
+-django-tinymce==3.0.2
+-django-widget-tweaks==1.4.8
+-djangorestframework==3.11.0
+-et-xmlfile==1.0.1
+-Faker==4.0.3
+-idna==2.9
+-jdcal==1.4.1
+-lxml==4.5.0
+-MarkupPy==1.14
+-mysqlclient==1.4.6
+-oauthlib==3.1.0
+-odfpy==1.4.1
+-openpyxl==3.0.3
+-pep8==1.7.1
+-pilkit==2.0
+-Pillow==7.0.0
+-pycodestyle==2.5.0
+-pycparser==2.20
+-PyJWT==1.7.1
+-PyMySQL==0.9.3
+-pytest-runner==5.2
+-python-dateutil==2.8.1
+-python-slugify==4.0.0
+-python3-openid==3.1.0
+-pytz==2019.3
+-PyYAML==5.3.1
+-requests==2.23.0
+-requests-oauthlib==1.3.0
+-six==1.14.0
+-soupsieve==2.0
+-sqlparse==0.3.1
+-tablib==1.1.0
+-text-unidecode==1.3
+-ua-parser==0.10.0
+-urllib3==1.25.8
+-xlrd==1.2.0
+-xlwt==1.3.0
+diff --git a/static/css/sensors.html b/static/css/sensors.html
+new file mode 100644
+index 00000000..d4e0126d
+--- /dev/null
++++ b/static/css/sensors.html
+@@ -0,0 +1,87 @@
++<div id="feature-index">
++<h2>The Boiler Sensors</h2>
++<ol> 
++	<li><a href="#fan">Fan Pressure/Proving Switch</a></li>
++    <li><a href="#mercury_switches">Mercury Switch</a></li>
++    <li><a href="#flow_switch">Flow Switches</a></li>
++    <li><a href="#hosco_flow_switch">Hosco Flow Switch</a></li>
++    <li><a href="#reed_switch">Reed Switch</a></li>
++    <li><a href="#diaphragm_reed_switch">Diaphragm Reed Switch</a></li>
++    <li><a href="#thermistor">Thermistor</a></li>
++	<li><a href="#thermocouple">Thermocouple</a></li>
++    <li><a href="#photocell">Photocell</a></li>
++</ol>
++</div>
++<h3 id="fan">Fan Pressure/Proving Switch</h3>
++
++<p><img alt="Fan Pressure or Proving Switch" src="/media/uploads/2020/10/20/fan-pressure-proving-switch.jpg" style="width:100%" /></p>
++
++<h3>Measurement and Control of DHW Flow Rates</h3>
++
++<h3 id="flow_switch">Flow Switches</h3>
++
++<p>There are a number of different types of flow sensing devices that fall within the general heading of flow switches. These devices are used to inform the boiler of the demand for domestic hot water. (Although they can be used to check for the operation of a pump in a similar way i.e. checking for water flow.)</p>
++
++<h3 id="reed_switch">Reed Switches</h3>
++
++<p><img alt="Reed Switch" src="/media/uploads/2020/10/20/read-switch-boiler.jpg" style="width:100%" /></p>
++
++<p>The reed switch usually consists of two permanent magnets one of which is connected to a sensing lever and the other to a microswitch. The magnets are usually like a pole (both north poles or both south poles).</p>
++
++<p>Some combi boilers use the Sifan flow switch this consists of a paddle connected to a lever and a reed switch.</p>
++
++<h3 id="hosco_flow_switch">Hosco Flow Switch</h3>
++
++<p><img alt="" src="/media/uploads/2020/10/20/hosco_flow_switch.jpg" style="width:100%" /></p>
++
++<p>Another variation on a flow switch is the ball reed type. This is basically a magnetic ball that moves with the flow of water and operates a reed switch. A similar switch can be found in use with certain power showers.</p>
++
++<p><img alt="" src="/media/uploads/2020/10/20/diaphragm-reed-switch-boiler.jpg" style="width:100%" /></p>
++
++<h3 id="diaphragm_reed_switch">Diaphragm Reed Switch</h3>
++
++<p>This is a diaphragm that moves up when water flows. On the top side is a reed switch.</p>
++
++<p>Membrane Type + microswitch</p>
++
++
++<h3 id="Thermistors">Thermistors</h3>
++
++<p>A thermistor can be used as a flow sensor by sensing slight changes in temperature as water flown to the hot tap.</p>
++The most common failure is an open circuit. These failures can arise because of mechanical separation between lead materials and resistor elements. Separation occurs because of handling damage, high/excessive heat, and thermal mismatching.
++The second most commonly experienced issue with thermistors is drifting in the resistance value. This problem begins to occur as the thermistor ages, as well as when parameters change. This problem will cause inaccurate measurements, which in turn will prevent the thermistor from providing correct thermal compensation.
++The least common failure mode is a short circuit.
++
++<h3 id="mechanical_switches">Mechanical Switches</h3>
++
++<p>Switches are primarily used to switch current on or off. They have metal contacts which can be opened or closed to make or break the circuit. The contacts are prone to failure due to slackness in the operation or due to damage to the metal surface due to arcing or simply wear.</p>
++
++<p>In systems with electronic components the switching becomes more complex because a variety of electronic (rather than mechanical) switches can operate.</p>
++
++<p>The most obvious switch will be the main power to the unit. This may be a rocker switch with the letters 0 and 1 indicating off or on. They are often illuminated giving a quick check to see that power is being delivered to the unit. Other power indicators may also be present. Toggle switches and slide switches are less likely to be found in current units. The slide switches are more usual for low voltage use domestic electronic equipment, such as radios and toggle switches are dated.</p>
++
++<p>Push-button switches may be latching, when they can switch circuits on or off but the may be momentary. Such a switch may be used to ************************* in a heating system.</p>
++
++<p>Electronic systems can &#39;decide&#39; when to switch a circuit on or off but they need to have some information provided from the system. When mechanical movement is possible, such as in a pressure detecting device, a microswitch could be operated. There are several types but they simply make contact with a low operating force. A signal can then be sent to the control system.</p>
++
++<h3 id="mercury_switches">Mercury switches</h3>
++
++<p>Mercury switches detect the tilt of some part of the system. The mercury runs between two metal contacts to complete a circuit. A glass case is shown in the illustration but a nickel-plated steel case is more robust.</p>
++
++<p>Mercury is a dangerous material and where public health may be an issue it would be replaced with non-toxic materials.</p>
++<h3 id="thermocouple">thermocouple</h3>
++So, why and how do temperature sensors fail? There are any number of ways a thermocouple can fail. It can short out, the sheath can fail, it can be damaged during operation or installation, it can be improperly installed, etc. The key is to perform a thorough root-cause analysis and prevent the failure again in the future, if possible.
++
++Where do you look for possible failures?
++
++The probe/sheath design
++ Choice of insulation materials
++ Construction of thermocouple (grounded, ungrounded or exposed tip)
++Improper installation
++The wire or thermocouple junction itself
++The wires from the probe back to the electronics
++The electronics
++
++<h3 id="photocell">Photocell, Magic eye, or Light dependent resistor</h3>
++
++<p><img alt="oil boiler photocell" src="/media/uploads/2020/10/20/boiler-photocell-500x500.jpg" style="width:100%" /></p>
+\ No newline at end of file
+diff --git a/static/css/style.css b/static/css/style.css
+index 9602afda..9e732935 100755
+--- a/static/css/style.css
++++ b/static/css/style.css
+@@ -355,4 +355,62 @@ footer a:hover {
+ 
+ .social-network a {
+     background-color: #F9F9F9;
++}
++
++ol {
++    max-width: 420px;
++    counter-reset: my-awesome-counter;
++    list-style: none;
++    padding-left: 40px;
++}
++
++ol li {
++    margin: 0 0 0.5rem 0;
++    counter-increment: my-awesome-counter;
++    position: relative;
++}
++
++ol li::before {
++    content: counter(my-awesome-counter);
++    color: #fcd000;
++    font-size: 1.5rem;
++    font-weight: bold;
++    position: absolute;
++    --size: 32px;
++    left: calc(-1 * var(--size) - 10px);
++    line-height: var(--size);
++    width: var(--size);
++    height: var(--size);
++    top: 0;
++    transform: rotate(-10deg);
++    background: black;
++    border-radius: 50%;
++    text-align: center;
++    box-shadow: 1px 1px 0 #999;
++}
++
++#feature-index h2 {
++    box-shadow: 1px 1px 0 #999;
++    transform: rotate(-1deg);
++    color: #fcd000;
++    font-size: 2rem;
++    font-weight: bold;
++    padding-bottom: 0.5em;
++}
++
++#feature-index a,
++#feature-index a:hover,
++#feature-index a:active,
++#feature-index a:visited {
++    letter-spacing: .2em;
++    color: white;
++}
++
++#feature-index {
++    margin: 20px 0 20px 0;
++    background: #16222A;
++    background: -webkit-linear-gradient(59deg, #3A6073, #16222A);
++    background: linear-gradient(59deg, #3A6073, #16222A);
++    padding: 1em;
++    line-height: 2em;
+ }
+\ No newline at end of file
+diff --git a/templates/sensors.html b/templates/sensors.html
+new file mode 100644
+index 00000000..e8a94367
+--- /dev/null
++++ b/templates/sensors.html
+@@ -0,0 +1,116 @@
++We're going to take a look at the 10 most common sensors in a gas system or combi boiler. These sensors will be found in natural gas and LPG boilers.
++Each of the boiler sensors can be tested with an inexpensive multimeter.
++These sensors all ensure the safe operation of the boiler, so it is important that you do not 
++attempt to diagnose any sensor faults or remplace any components unless you are competent to do so.
++
++<div id="feature-index">
++<h2>The Boiler Sensors</h2>
++<ol> 
++	<li><a href="#fan">Fan Pressure / Proving Switch</a></li>
++    <li><a href="#mercury_switches">Mercury Switch</a></li>
++    <li><a href="#flow_switch">Flow Switches</a></li>
++    <li><a href="#hosco_flow_switch">Hosco Flow Switch</a></li>
++    <li><a href="#reed_switch">Reed Switch</a></li>
++    <li><a href="#diaphragm_reed_switch">Diaphragm Reed Switch</a></li>
++    <li><a href="#thermistor">Thermistor</a></li>
++	<li><a href="#thermocouple">Thermocouple</a></li>
++    <li><a href="#photocell">Photocell</a></li>
++    <li><a href="#flame-sensing-eclectrode">Flame sensing / ignition electrode</a></li> 
++</ol>
++</div>
++<p>
++It is important to note that many gas boilers will use the case as 0V or ground, this means that sensors can either be
++grounded directly through their body,fixings of a small wire to the boiler chasis.
++</p>
++<p>When checking sensors it is important to clean all terminals connections, and check the continuity of connecting cables.</p>
++
++<h3 id="fan">Fan Pressure/Proving Switch</h3>
++<p>The fan pressure switch or fan proving switch will prevent the boiler from lighting if the fan is not operating or their is a blockage in the boiler flue.</p>
++<p><img alt="Fan Pressure or Proving Switch" src="/media/uploads/2020/10/20/fan-pressure-proving-switch.jpg" style="width:100%" /></p>
++
++<h3>Measurement and Control of DHW Flow Rates</h3>
++
++<h3 id="flow_switch">Flow Switches</h3>
++
++<p>There are a number of different types of flow sensing devices that fall within the general heading of flow switches. These devices are used to inform the boiler of the demand for domestic hot water. (Although they can be used to check for the operation of a pump in a similar way i.e. checking for water flow.)</p>
++
++<h3 id="reed_switch">Reed Switches</h3>
++
++<p><img alt="Reed Switch" src="/media/uploads/2020/10/20/read-switch-boiler.jpg" style="width:100%" /></p>
++
++<p>The reed switch usually consists of two permanent magnets one of which is connected to a sensing lever and the other to a microswitch. The magnets are usually like a pole (both north poles or both south poles).</p>
++
++<p>Some combi boilers use the Sifan flow switch this consists of a paddle connected to a lever and a reed switch.</p>
++
++<h3 id="hosco_flow_switch">Hosco Flow Switch</h3>
++
++<p><img alt="" src="/media/uploads/2020/10/20/hosco_flow_switch.jpg" style="width:100%" /></p>
++
++<p>Another variation on a flow switch is the ball reed type. This is basically a magnetic ball that moves with the flow of water and operates a reed switch. A similar switch can be found in use with certain power showers.</p>
++
++<p><img alt="" src="/media/uploads/2020/10/20/diaphragm-reed-switch-boiler.jpg" style="width:100%" /></p>
++
++<h3 id="diaphragm_reed_switch">Diaphragm Reed Switch</h3>
++
++<p>This is a diaphragm that moves up when water flows. On the top side is a reed switch.</p>
++
++
++<p><img alt="Pressure switch with microswitch" src="/media/img/pressure-switch.jpg" style="width:100%" /></p>
++
++
++<p>Membrane Type + microswitch</p>
++
++
++<h3 id="Thermistors">Thermistors</h3>
++
++<p>A thermistor can be used as a flow sensor by sensing slight changes in temperature as water flown to the hot tap.</p>
++The most common failure is an open circuit. These failures can arise because of mechanical separation between lead materials and resistor elements. Separation occurs because of handling damage, high/excessive heat, and thermal mismatching.
++The second most commonly experienced issue with thermistors is drifting in the resistance value. This problem begins to occur as the thermistor ages, as well as when parameters change. This problem will cause inaccurate measurements, which in turn will prevent the thermistor from providing correct thermal compensation.
++The least common failure mode is a short circuit.
++
++
++<p><img alt="Gas boiler NTC thermistor for Baxi boiler" src="/media/img/gas-boiler-NTC-thermistor.jpg" style="width:100%" /></p>
++
++
++<h3 id="mechanical_switches">Mechanical Switches</h3>
++
++<p>Switches are primarily used to switch current on or off. They have metal contacts which can be opened or closed to make or break the circuit. The contacts are prone to failure due to slackness in the operation or due to damage to the metal surface due to arcing or simply wear.</p>
++
++<p>In systems with electronic components the switching becomes more complex because a variety of electronic (rather than mechanical) switches can operate.</p>
++
++<p>The most obvious switch will be the main power to the unit. This may be a rocker switch with the letters 0 and 1 indicating off or on. They are often illuminated giving a quick check to see that power is being delivered to the unit. Other power indicators may also be present. Toggle switches and slide switches are less likely to be found in current units. The slide switches are more usual for low voltage use domestic electronic equipment, such as radios and toggle switches are dated.</p>
++
++<p>Push-button switches may be latching, when they can switch circuits on or off but the may be momentary. Such a switch may be used to ************************* in a heating system.</p>
++
++<p>Electronic systems can &#39;decide&#39; when to switch a circuit on or off but they need to have some information provided from the system. When mechanical movement is possible, such as in a pressure detecting device, a microswitch could be operated. There are several types but they simply make contact with a low operating force. A signal can then be sent to the control system.</p>
++
++<h3 id="mercury_switches">Mercury switches</h3>
++
++<p>Mercury switches detect the tilt of some part of the system. The mercury runs between two metal contacts to complete a circuit. A glass case is shown in the illustration but a nickel-plated steel case is more robust.</p>
++
++<p>Mercury is a dangerous material and where public health may be an issue it would be replaced with non-toxic materials.</p>
++
++
++<p><img alt="gas boiler mercury vapour switch - now obsolete" src="/media/img/mercury_vapour_switch.jpg" style="width:100%" /></p>
++
++
++<h3 id="thermocouple">thermocouple</h3>
++
++
++So, why and how do temperature sensors fail? There are any number of ways a thermocouple can fail. It can short out, the sheath can fail, it can be damaged during operation or installation, it can be improperly installed, etc. The key is to perform a thorough root-cause analysis and prevent the failure again in the future, if possible.
++
++Main cause of failure are cracked or broken insulation on wire, a grounded, ungrounded or exposed tip
++
++<p><img alt="gas boiler thermocouple with accessories" src="/media/img/gas-boiler-thermocouple.jpg" style="width:100%" /></p>
++
++
++<h3 id="photocell">Photocell, Magic eye, or Light dependent resistor</h3>
++
++<p><img alt="oil boiler photocell" src="/media/uploads/2020/10/20/boiler-photocell-500x500.jpg" style="width:100%" /></p>
++
++<h3 id="flame-sensing-eclectrode">Flame sensing ignition eclectrode</h3>
++<p>The flame rectification system is an electrical process that causes a low level DC current
++ to be conducted from the flame rod of the electrode through the flame, and back to ground. When the
++the flame current is too low, or not present the boiler PCB will stop the ignition operation
++ and stop the flow of gas to the jets.</p>
++<p><img alt="2 Flame sensing eclectrodes" src="/media/img/flame-sensing-electrode.jpg" style="width:100%" /></p>
+diff --git a/templates/test.html b/templates/test.html
+new file mode 100644
+index 00000000..80d2670e
+--- /dev/null
++++ b/templates/test.html
+@@ -0,0 +1,62 @@
++{% extends 'base_generic.html' %} {% block content %}  
++</div>
++<div class="fwhead w-100">
++        <div class="col-12">
++        
++                        <h1>{% block title %} {{ object.title }} {% endblock title %}</h1>
++
++        </div>
++</div>
++<div class="container">
++<div class="row cnt">&nbsp;</div>
++<div class="row cnt">
++        <div class="col-sm-8" style="padding-left:3em">
++                {% include "sensors.html" %}
++        </div>
++        <div class="col-sm-4 text-center">
++                {% load avatar_tags %}
++                {% avatar object.author 250 class="rounded-circle img-fluid" %}
++                <hr/>
++              
++                <h4> {{ object.author.first_name | safe }}
++                       
++                {{ object.author.last_name | safe }}</h4>
++                <hr/>
++
++                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
++                        <path fill-rule="evenodd" clip-rule="evenodd" d="M24 0C10.7452 0 0 10.7452 0 24C0 37.2548 10.7452 48 24 48C37.2548 48 48 37.2548 48 24C48 10.7452 37.2548 0 24 0ZM26.5016 25.0542V38.1115H21.0991V25.0547H18.4V20.5551H21.0991V17.8536C21.0991 14.1828 22.6231 12 26.9532 12H30.5581V16.5001H28.3048C26.6192 16.5001 26.5077 17.1289 26.5077 18.3025L26.5016 20.5546H30.5836L30.1059 25.0542H26.5016Z" fill="black"/>
++                        </svg>
++
++                
++                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
++                                <path fill-rule="evenodd" clip-rule="evenodd" d="M24 0C10.7452 0 0 10.7452 0 24C0 37.2548 10.7452 48 24 48C37.2548 48 48 37.2548 48 24C48 10.7452 37.2548 0 24 0ZM23.3316 20.338L23.2812 19.5075C23.1301 17.3551 24.4563 15.3891 26.5548 14.6265C27.327 14.3553 28.6364 14.3214 29.4926 14.5587C29.8283 14.6604 30.4663 14.9993 30.9195 15.3044L31.7421 15.8637L32.6486 15.5756C33.1523 15.423 33.8238 15.1688 34.1259 14.9993C34.4113 14.8468 34.6631 14.762 34.6631 14.8129C34.6631 15.101 34.042 16.084 33.5216 16.6263C32.8165 17.389 33.018 17.4568 34.4449 16.9483C35.3011 16.6602 35.3178 16.6602 35.15 16.9822C35.0492 17.1517 34.5288 17.7449 33.9748 18.2872C33.0347 19.2194 32.9844 19.3211 32.9844 20.1007C32.9844 21.304 32.4136 23.8123 31.8428 25.1851C30.7852 27.7612 28.5189 30.422 26.2526 31.7609C23.063 33.6422 18.8157 34.1167 15.24 33.0151C14.0481 32.6422 12 31.6931 12 31.5237C12 31.4728 12.6211 31.405 13.3766 31.3881C14.9546 31.3542 16.5326 30.9135 17.8756 30.1339L18.7822 29.5916L17.7413 29.2357C16.264 28.7272 14.9378 27.5578 14.6021 26.4562C14.5013 26.1003 14.5349 26.0833 15.475 26.0833L16.4487 26.0664L15.6261 25.6766C14.6524 25.1851 13.7627 24.3546 13.3262 23.5072C13.0072 22.8971 12.6044 21.3548 12.7219 21.2362C12.7554 21.1854 13.108 21.287 13.5109 21.4226C14.6692 21.8463 14.8203 21.7446 14.1488 21.0328C12.8897 19.7448 12.5036 17.8296 13.108 16.0162L13.3934 15.2027L14.5013 16.3043C16.7677 18.5245 19.4369 19.8465 22.4922 20.2363L23.3316 20.338Z" fill="black"/>
++                                </svg>
++
++                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
++                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0 24C0 37.2548 10.7452 48 24 48C37.2548 48 48 37.2548 48 24C48 10.7452 37.2548 0 24 0C10.7452 0 0 10.7452 0 24ZM37.6014 19.7065C39.8065 19.7065 41.6 21.4925 41.6 23.6875C41.6 25.1388 40.8127 26.4067 39.6458 27.1011C39.6939 27.4326 39.7197 27.7677 39.7197 28.1067C39.7197 33.7675 32.8155 38.3731 24.3296 38.3731C15.843 38.3731 8.93955 33.7675 8.93955 28.1067C8.93955 27.7413 8.96965 27.3801 9.02555 27.0236C7.92865 26.3137 7.2 25.0851 7.2 23.6875C7.2 21.4925 8.99349 19.7069 11.1986 19.7065C12.1782 19.7065 13.0769 20.0614 13.7731 20.6467C16.4282 18.9744 19.971 17.9244 23.8762 17.8481L26.1595 10.6629C26.2795 10.2807 26.6774 10.0561 27.0691 10.1476L32.9824 11.5327C33.5117 10.4087 34.6559 9.62608 35.9834 9.62608C37.8105 9.62608 39.2979 11.1062 39.2979 12.926C39.2979 14.7459 37.8109 16.2259 35.9834 16.2259C34.1927 16.2259 32.7334 14.8042 32.6744 13.0362L27.412 11.8024L25.4832 17.8718C29.1511 18.0544 32.4633 19.097 34.9686 20.6993C35.6726 20.0836 36.5928 19.7065 37.6014 19.7065Z" fill="black"/>
++                                        <path d="M39.224 25.5202C38.6615 24.0782 37.6373 22.7593 36.2664 21.6357C36.6511 21.3862 37.1092 21.2399 37.6018 21.2399C38.9574 21.2399 40.0602 22.3378 40.0602 23.6875C40.0594 24.4172 39.735 25.0718 39.224 25.5202Z" fill="black"/>
++                                        <path d="M35.9834 11.1603C36.9619 11.1603 37.7577 11.9531 37.7577 12.9272C37.7577 13.9013 36.9619 14.6937 35.9834 14.6937C35.0046 14.6937 34.2087 13.9013 34.2087 12.9272C34.2087 11.9531 35.0046 11.1603 35.9834 11.1603Z" fill="black"/>
++                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M24.3296 36.8402C31.9657 36.8402 38.1796 32.9222 38.1796 28.1076C38.1796 27.9453 38.1713 27.7849 38.1577 27.6242C38.1131 27.1112 37.9943 26.6103 37.8148 26.1239C37.3594 24.896 36.4959 23.7665 35.3146 22.7978C34.9229 22.476 34.4976 22.1716 34.0398 21.8879C31.5396 20.3347 28.1093 19.3741 24.3296 19.3741C20.6039 19.3741 17.2194 20.3082 14.7274 21.8225C14.2708 22.1 13.8443 22.3974 13.4506 22.7122C12.2205 23.6957 11.3198 24.8493 10.8503 26.1063C10.6693 26.5913 10.5505 27.0918 10.504 27.6036C10.4891 27.7705 10.4797 27.9379 10.4797 28.1076C10.4797 32.9226 16.6925 36.8402 24.3296 36.8402ZM19.265 23.8841C20.564 23.8841 21.6171 24.9687 21.6171 26.2616C21.6171 27.5541 20.564 28.6022 19.265 28.6038C17.9668 28.6038 16.8774 27.5541 16.8774 26.2616C16.8774 24.9687 17.9664 23.8841 19.265 23.8841ZM29.5706 23.8833C28.272 23.8833 27.1794 24.9676 27.1794 26.2605C27.1794 27.5537 28.272 28.6026 29.5706 28.6026C30.8696 28.6026 31.9234 27.5545 31.9234 26.2605C31.9227 24.9668 30.8696 23.8833 29.5706 23.8833ZM24.418 33.225C26.5676 33.225 28.0347 32.8043 28.906 31.938C29.2074 31.6391 29.6953 31.6391 29.9967 31.9387C30.2973 32.2376 30.2973 32.7226 29.9959 33.0226C28.8216 34.1902 26.9968 34.7588 24.418 34.7588C24.4146 34.7588 24.4114 34.7582 24.4083 34.7576C24.4053 34.757 24.4023 34.7565 24.3992 34.7565C24.3961 34.7565 24.3933 34.757 24.3903 34.7576C24.3873 34.7582 24.3842 34.7588 24.3809 34.7588C21.8016 34.7588 19.9773 34.1902 18.8041 33.0218C18.5031 32.7233 18.5031 32.238 18.8041 31.938C19.1048 31.6383 19.5926 31.6383 19.8932 31.938C20.7634 32.8043 22.2309 33.225 24.3809 33.225C24.3839 33.225 24.3868 33.2255 24.3898 33.226C24.3928 33.2264 24.3959 33.2269 24.3992 33.2269C24.4023 33.2269 24.4053 33.2265 24.4083 33.226C24.4114 33.2255 24.4146 33.225 24.418 33.225Z" fill="black"/>
++                                        <path d="M8.74017 23.6875C8.74017 22.3382 9.84293 21.2399 11.1982 21.2399C11.656 21.2399 12.0836 21.3679 12.4515 21.5862C11.0798 22.6958 10.0532 24.0016 9.4743 25.4287C9.02124 24.9846 8.74017 24.3686 8.74017 23.6875Z" fill="black"/>
++                                        </svg>
++
++                                        <hr/>
++                <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
++                        <g id="P" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
++                             <g id="Social-Icons---Isolated" transform="translate(-54.000000, -393.000000)" fill="#4A4A4A">
++                                 <path d="M61.855,422.51 C63.681,422.51 65.363,421.885 66.697,420.838 L81.603,428.197 C81.603,428.227 81.601,428.254 81.601,428.283 C81.601,432.621 85.119,436.139 89.457,436.139 C93.794,436.139 97.312,432.621 97.312,428.283 C97.312,423.946 93.794,420.428 89.457,420.428 C87.148,420.428 85.074,421.422 83.638,423.006 L69.582,416.067 C69.664,415.61 69.71,415.139 69.71,414.656 C69.71,414.559 69.707,414.463 69.703,414.367 L84.244,406.731 C85.632,407.961 87.457,408.711 89.457,408.711 C93.796,408.711 97.312,405.194 97.312,400.856 C97.312,396.516 93.794,393 89.457,393 C85.119,393 81.601,396.516 81.601,400.856 C81.601,401.18 81.625,401.498 81.662,401.811 L67.533,409.231 C66.103,407.735 64.089,406.801 61.855,406.801 C57.517,406.801 54,410.319 54,414.656 C54,418.994 57.517,422.51 61.855,422.51" id="Share"></path>
++                             </g>
++                         </g>
++                     </svg>
++                     <br/><strong>346</strong>
++                     <hr/>
++        </div>     
++        
++       
++</div> 
++<div class="row com">
++        <div class="col-12">
++{% load comment_tags %}  
++{% get_comments object request %} 
++</div></div> 
++{% endblock content %}
+\ No newline at end of file

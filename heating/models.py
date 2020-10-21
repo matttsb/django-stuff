@@ -33,7 +33,9 @@ class BlogPost(models.Model):
     enddate = models.DateTimeField(default=timezone.now, null=True, blank=True)
     visible = models.BooleanField(default=False, null=True, blank=True)
     promote = models.BooleanField(default=False, null=True, blank=True)
-    
+    class meta:
+        ordering = ['publishdate']
+
     def __str__(self):
         return f'{self.title}'
 
