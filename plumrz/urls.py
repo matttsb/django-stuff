@@ -34,6 +34,8 @@ urlpatterns = [
     path('comments/', include('django_comments.urls')),
     path('comment/', include('comment.urls')),
     path('questions/<slug:slug>/', views.ForumDetail.as_view(), name='forum-detail'),
+    path('test/<slug:slug>/', views.TestDetail.as_view(), name='test-detail'),
+    
     path('overview/',views.IndexView.as_view()),
     path('manage/', views.manage, name='manage'),
     path('api/', include('comment.api.urls')),  # for API Framework
@@ -46,7 +48,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('pages/', include('django.contrib.flatpages.urls')),
     path('appliances/', views.ApplianceListView.as_view(), name='appliances'),
-    path('tinymce/', include('tinymce.urls')),
     path('sitemap.xml', sitemap,{'sitemaps': sitemaps},name='django.contrib.sitemaps.views.sitemap'),
     path('<slug:category>/<slug:slug>/', views.PostDetail.as_view(), name='blog'),
 

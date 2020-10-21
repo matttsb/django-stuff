@@ -28,7 +28,15 @@ class ForumDetail(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super(ForumDetail, self).get_context_data(**kwargs)
         return context
-#
+        
+class TestDetail(generic.DetailView):
+    # no need to change this can render in blog detail template
+    model = BlogPost
+    template_name = 'test.html'
+    def get_context_data(self, **kwargs):
+        context = super(TestDetail, self).get_context_data(**kwargs)
+        return context
+
 class IndexView(generic.TemplateView):
     template_name = 'overview.html'
 

@@ -1,3 +1,4 @@
+*sql*
 *.pyc 
 dbback.sh
 plumrz.sql.gz
