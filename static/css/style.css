@@ -356,7 +356,8 @@ footer a:hover {
     background-color: #F9F9F9;
 }
 .banner
-{
+{   padding: 10px;
+    font-family: 'Lobster', cursive;
     background: rgb(232,158,12);
     background: radial-gradient(circle, rgba(232,158,12,1) 0%, rgba(247,179,33,1) 47%, rgba(255,156,0,1) 100%); 
 }
