@@ -10,9 +10,11 @@
 <div class="container">
 <div class="row cnt">&nbsp;</div>
 <div class="row cnt">
+        
         <div class="col-sm-8" style="padding-left:3em">
-                {{ object.body | safe }}
+                <article> {{ object.body | safe }} </article>
         </div>
+       
         <div class="col-sm-4 text-center">
                 {% load avatar_tags %}
                 {% avatar object.author 250 class="rounded-circle img-fluid" %}
