@@ -61,7 +61,7 @@ class FrontPageView(generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['latest_features'] = BlogPost.objects.all().filter(visible=True).order_by('-publishdate')[
+        context['latest_features'] = BlogPost.objects.all().filter(visible=True).filter(promote=True).order_by('-publishdate')[
             :10].select_related('category')
         return context
 
