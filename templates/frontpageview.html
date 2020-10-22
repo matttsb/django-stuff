@@ -2,8 +2,21 @@
 <div class="row">
 
     <div class="col-sm-12 flex mt-2">
-        <div class="card banner w-100"><h1>TEST</h1></div>
+        <div class="card banner w-100">
+            <h1>Win a pair of cordless batteries every month 
+            when you sign up for our free monthly mailshot
+        </h1>
+        <form method="post" class="subscriptionForm" action="{% url 'newsfeed:newsletter_subscribe' %}">
+            {% csrf_token %}
+            <input type="email" name="email_address" required="" id="id_email_address">
+            <button type="submit">Subscribe</button>
+            <div class="subscriptionMessage"></div>
+        </form>
+        
+    </div>
+
 </div>
+
 </div>
 <div class="row flex">
     {% load evaluate %} {% load comments %}{% for f in latest_features %}
