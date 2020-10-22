@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "commit: $1";
 git add .
 git commit -m "$1-commit"
