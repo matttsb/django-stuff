@@ -388,7 +388,7 @@ ol li::before {
     box-shadow: 1px 1px 0 #999;
 }
 
-#feature-index h2 {
+.feature-index h2 {
     box-shadow: 1px 1px 0 #999;
     transform: rotate(-1deg);
     color: #fcd000;
@@ -397,15 +397,16 @@ ol li::before {
     padding-bottom: 0.5em;
 }
 
-#feature-index a,
-#feature-index a:hover,
-#feature-index a:active,
-#feature-index a:visited {
+.feature-index p,
+.feature-index a,
+.feature-index a:hover,
+.feature-index a:active,
+.feature-index a:visited {
     letter-spacing: .2em;
     color: white;
 }
 
-#feature-index {
+.feature-index {
     margin: 20px 0 20px 0;
     background: #16222A;
     background: -webkit-linear-gradient(59deg, #3A6073, #16222A);
