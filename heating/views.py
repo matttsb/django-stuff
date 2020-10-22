@@ -62,7 +62,7 @@ class FrontPageView(generic.TemplateView):
         context = super().get_context_data(**kwargs)
 
         context['latest_features'] = BlogPost.objects.all().filter(visible=True).order_by('-publishdate')[
-            :20].select_related('category')
+            :10].select_related('category')
         return context
 
 def redirect_view(request):

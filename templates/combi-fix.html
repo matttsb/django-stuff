@@ -224,78 +224,61 @@ A display may give a reading that tells us a value that it is measuring. Watches
 	<p>does the fan run? If not check <a href="#fanfault">Fan Faults</a>.</p>
 
 	<p>does pump run? If not see <a href="/features/central-heating-pump-fault-diagnosis-heating-pump/">central heating pump diagnosis</a>.</p>
-	
-			<p>does boiler attempt ignition?</p>
-			</td>
-			<td>
-			<p>check microswitches M1 and M2 are making and breaking contact see below</p>
-			</td>
-			<td>
-			<p>&nbsp;</p>
-			</td>
-		</tr>
-		<tr>
-			<td>
-			<p>does fan pressure switch operate?</p>
-			</td>
-			<td>
-			<p>check flue joints<br />
-			check combustion chamber seals<br />
-			check for obstructions in the flue<br />
-			check for obstruction at the flue terminal<br />
-			check air pressure switch tubes are nt blocked or kinked and correctly fitted.<br />
-			check fan is working properly</p>
-			</td>
-			<td>
-			<p>if the answer to all of these is yes then change the fan pressure switch.</p>
-			</td>
-		</tr>
-		<tr>
-			<td>
-			<p>does boiler lockout?</p>
-			</td>
-			<td>
-			<p>check there is gas supply to boiler live and purged<br />
-			check water deficiency valve open<br />
-			check ....Vdc to to operator - is there a neon / LED that switches on and an audible click<br />
-			check C/H temp monitor - should be a normally closed circuit<br />
-			check spark generator, leads and electrodes<br />
-			check ignition rate gas burner pressure<br />
-			check flame monitor and lead<br />
-			check flame stability - usually indicates flue or gas burner pressure problems.</p>
-			</td>
-			<td>
-			<p>&nbsp;</p>
-			</td>
-		</tr>
-		<tr>
-			<td>
-			<p>does boiler stay at a low fire rate?</p>
-			</td>
-			<td>
-			<p>check standing and working gas pressure to the boiler<br />
-			check diaphragm pump operating and tubes clear<br />
-			check voltage at diaphragm pump<br />
-			check gas valve adjustment</p>
-			</td>
-			<td>
-			<p>&nbsp;</p>
-			</td>
-		</tr>
-		<tr>
-			<td>
-			<p>if boiler does not modulate</p>
-			</td>
-			<td>
-			<p>check NTC resistor<br />
-			check gas valve</p>
-			</td>
-			<td>
-			<p>&nbsp;</p>
-			</td>
-		</tr>
-	</tbody>
-</table>
+	<p>does boiler stay on low fire rate? if yes see <a href="#boiler-low-fire">boiler stays on low fire rate</a>
+
+	<p>does the boiler modulate? if not you should check the  <a href="/features/combi-sensor-diagnostic/#thermistors">NTC thermistor</a> and also the check gas valve</p>
+
+	<p>Does the boiler go to <a href="#gas-boiler-lockout">lockout</a>
+</p>
+
+<div class="feature-index">
+
+<h2 id="gas-boiler-lockout">does the boiler lockout</h2>
+<ol>
+<li><p>check there is gas supply to boiler live and purged of air</p></li>
+<li><p>check water deficiency valve open</p></li>
+<li><p>check C/H temp monitor - should be a normally closed circuit</p></li>
+<li><p>check spark generator, leads and electrodes</p></li>
+<li><p>check ignition rate gas burner pressure<br />
+			</p></li>
+<li><p>check flame stability - usually indicates flue or gas burner pressure problems</p></li>
+</ol>
+</div>
+
+
+<div class="feature-index">
+
+<h2 id="fan-pressure-switch">does the fan pressure switch operate?</h2>
+<ol>
+<li><p>check flue joints</p></li>
+<li><p>check combustion chamber seals</p></li>
+<li><p>check for obstructions in the flue</p></li>
+<li><p>check for obstruction at the flue terminal</p></li>
+<li><p>check air pressure switch tubes are nt blocked or kinked and correctly fitted</p></li>
+<li><p>check fan is working properly</p></li>
+</ol>
+<p>if fan not working after checks replace fan pressure switch.</p>
+</div>
+
+
+
+
+<div class="feature-index">
+
+
+<h2 id="boiler-low-fire">Boiler stays on low fire rate</h2>
+
+
+	<ol>
+
+				
+			<li><p>check standing and working gas pressure to the boiler</p></li>
+			<li><p>check diaphragm pump operating and tubes clear</p></li>
+			<li><p>check voltage at diaphragm pump</p></li>
+			<li><p>check gas valve adjustment</p></li>
+		
+			</ol>
+</div>
 
 <div class="feature-index">
 
