@@ -355,7 +355,11 @@ footer a:hover {
 .social-network a {
     background-color: #F9F9F9;
 }
-
+.banner
+{
+    background: rgb(232,158,12);
+    background: radial-gradient(circle, rgba(232,158,12,1) 0%, rgba(247,179,33,1) 47%, rgba(255,156,0,1) 100%); 
+}
 ol {
     max-width: 420px;
     counter-reset: my-awesome-counter;
@@ -386,6 +390,33 @@ ol li::before {
     border-radius: 50%;
     text-align: center;
     box-shadow: 1px 1px 0 #999;
+}
+.reviewbox h3 {
+    box-shadow: 1px 1px 0 #999;
+    transform: rotate(-1deg);
+    color: #fcd000;
+    font-size: 2rem;
+    font-weight: bold;
+    padding-bottom: 0.5em;
+}
+
+.reviewbox p,
+.reviewbox a,
+.reviewbox a:hover,
+.reviewbox a:active,
+.reviewbox a:visited {
+    letter-spacing: .2em;
+    color: white;
+    
+}
+
+.reviewbox {
+    margin: 20px 0 20px 0;
+    background: #16222A;
+    background: -webkit-linear-gradient(59deg, #3A6073, #16222A);
+    background: linear-gradient(59deg, #3A6073, #16222A);
+    padding: 1em;
+    line-height: 2em;
 }
 
 .feature-index h2 {
