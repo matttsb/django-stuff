@@ -18,13 +18,20 @@ class FixStuffMiddleware:
 #            response_text=response_text.replace('and','xxx')
             soup = BSHTML(response_text)
             images = soup.findAll('img')
+            im=""
             for image in images:
-                if image['alt']=="":
-                    image['alt']=image['src'].replace("/media/img/","").replace(".jpg","").replace("_"," ").replace("-"," ")
+  
+                try:
+                    if image['alt']=="":
+                        image['alt']=image['src'].replace("/media/img/","").replace(".jpg","").replace("_"," ").replace("-"," ") 
+                except:
+                        print("oops")
+                
                 try:
                     _title = (image['title'])
+                    im=image['alt']
                 except:
-                    image['title']= image['alt']
+                    image['title']= im
             response_text=str(soup)
             response.content = bytes(response_text,encoding='UTF-8')
       
