@@ -1,4 +1,6 @@
 from django.http import HttpResponse
+import os
+from django.conf import settings
 
 from bs4 import BeautifulSoup as BSHTML
 
@@ -7,6 +9,9 @@ class FixStuffMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
         # One-time configuration and initialization.
+        file_contents = open(os.path.join(settings.MEDIA_ROOT, 'bad-user-agents.list'), 'r').read()
+        self.agents = file_contents.split("\n")
+      
 
     def __call__(self, request):
         # Code to be executed for each request before
@@ -40,9 +45,13 @@ class FixStuffMiddleware:
 
             response_text=str(soup)
             response.content = bytes(response_text,encoding='UTF-8')
-      
-
-        # Code to be executed for each request/response after
+        
+        for i in self.agents:
+            if i in request.META['HTTP_USER_AGENT']:
+                print (request.META['HTTP_USER_AGENT'])
+                print (i)
+                response.content=bytes("",encoding='UTF-8')
+            # Code to be executed for each request/response after
         # the view is called.
 
         return response
