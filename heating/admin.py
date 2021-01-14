@@ -9,6 +9,10 @@ from import_export.widgets import ForeignKeyWidget
 admin.site.register(BlogPost)
 admin.site.register(BlogCategory)
 
+@admin.register(Customer)
+class BlogPostAdmin(admin.ModelAdmin):
+    list_display = ("title", "publishdate", "visible", "slug")
+
 class AdminPost(admin.ModelAdmin):
     class Media:
                 js = ('/static/js/tiny_mce/tiny_mce.js',)
