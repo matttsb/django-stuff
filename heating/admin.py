@@ -6,12 +6,12 @@ from import_export import resources, fields
 from import_export.widgets import ForeignKeyWidget
 
 
-admin.site.register(BlogPost)
 admin.site.register(BlogCategory)
-
-@admin.register(BlogPost)
 class BlogPostAdmin(admin.ModelAdmin):
     list_display = ("title", "publishdate", "visible", "slug")
+    list_filter = ("publishdate", "category")
+    search_fields = ['name']
+admin.site.register(BlogPost,BlogPostAdmin)
 
 class AdminPost(admin.ModelAdmin):
     class Media:
