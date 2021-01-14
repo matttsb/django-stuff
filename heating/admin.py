@@ -9,7 +9,7 @@ from import_export.widgets import ForeignKeyWidget
 admin.site.register(BlogPost)
 admin.site.register(BlogCategory)
 
-@admin.register(Customer)
+@admin.register(BlogPost)
 class BlogPostAdmin(admin.ModelAdmin):
     list_display = ("title", "publishdate", "visible", "slug")
 
